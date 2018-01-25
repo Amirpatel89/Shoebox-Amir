@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog</title>
+	<% include head %>
+
+</head>
+<body id="blog-bg">
+	<% if(notAdmin){ %>
+		<script type="text/javascript">
+			swal("You must be an administrator to review the blog posts.", "", "error");
+		</script>
+	<% }else if(approved){ %>
+		<script type="text/javascript">
+			swal("You have successfully approved a blog post!", "", "success");
+		</script>
+	<% }else if(hidden){ %>
+		<script type="text/javascript">
+			swal("You have successfully hidden a blog post!", "", "success");
+		</script>
+	<% } %>
+
+	<div class="header col-sm-12">
+			<div class="nav-bar">
+				<a href="/"><img class="logo" src="./images/sm-sb-logo.png"/></a>
+				<a href="/"><img class="sp" src="./images/sb-lettering_white.png" height="50" width="170"/></a>
+				<div class="login">
+					<% if(review){ %>
+						<a href="/volunteers/home"><button class="btn btn-info">Home</button></a>
+						<a href="/users/logout"><button class="btn btn-danger family-login">Logout</button></a>
+					<% }else{ %>
+						<button class="btn btn-info family-login">Family Login</button>
+						<button class="btn btn-info volunteer-login">Volunteer Login</button>
+					<% } %>
+				</div>
+				<div class="nav-menu col-sm-offset-4">
+					<a class="nav-links" href="/#about">About</a>
+					<a class="nav-links" href="/blog">Blog</a>
+					<a class="nav-links" href="/volunteers">Volunteer</a>
+					<a class="nav-links" href="/#contact">Contact</a>
+					<a class="nav-links" href="https://stripe.com" target="_blank">Donate</a>
+				</div>
+			</div>
+		</div>
+
+
+<div id="middleOfBlog col-sm-12"></div>
+	<div class="row">
+		<div class="blog">
+			<% blog.map((entry)=>{ %>
+				<a class="blog-link" href="/blogContents/<%=entry.blog_id%>"><h3><%=entry.title%></h3></a>
+				<h5><%=entry.name%></h5>
+				<h6><%=entry.date%></h6>
+				<% if(review){ %>
+					<p><%-entry.body%></p>
+					<% if(entry.approved == 'no'){ %>
+						<a href="/blog/approvePost/<%=entry.blog_id%>"><button class="btn btn-success">Approve</button></a>
+					<% }else{ %>
+						<a href="/blog/hidePost/<%=entry.blog_id%>"><button class="btn btn-danger">Hide</button></a>
+					<% } %>
+				<% } %>
+				<hr />
+			<% }); %>
+		</div>
+	</div>
+
+
+
+	<footer>
+		<div class="footer col-sm-12">
+			<ul>
+				<li>
+			<span class="footer-text" data-toggle="modal" data-target="#myModal"></span>
+				</li>
+				<li>
+			<span class="footer-text"></span>
+				</li>
+			</ul>	
+			<div class="copyright">
+				&copy Shoebox Project Copyright 2017
+			</div>
+			<div class="social-media">
+				<img class="fb grow" src="./images/social-media/Facebook.svg" height="50" width="50"/>
+				<img class="twtr grow" src="./images/social-media/Twitter.svg" height="50" width="50"/>
+				<img class="ig grow" src="./images/social-media/Instagram.svg" height="50" width="50"/>
+			</div>
+		</div>
+	</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign in</title>
+	<% include user-head %>
+
+</head>
+<body class="volunteer-signin-form">
+	<% if(notRegistered){ %>
+		<script type="text/javascript">
+			swal("That email is not in our system.", "Please try again with a different email, or sign-up.", "error");
+		</script>
+	<% }else if(badPass){ %>
+		<script type="text/javascript">
+			swal("Your password is incorrect.", "Please try again.", "error");
+		</script>
+	<% }else if(notAdmin){ %>
+		<script type="text/javascript">
+			swal("You must be signed in as an administrator to access that page.", "", "error");
+		</script>
+	<% } %> 
+	<div>
+		<div class="vol-log-wrapper">
+		
+			<form action="/volunteers/loginProcess" method="post" class="sign-up-form responsive-height">
+						<h2 class="volunteer-header row text-center mobile-font-boost">Volunteer Login</h2>
+				
+				<div class="login-wrapper">
+					<div class="email-error error"></div>
+					<label class="mobile-font-boost">Email</label><input name="email" type="email" class="email mobile-font-boost" placeholder="Your Email" required>
+				</div>
+
+				<div class="login-wrapper">
+					<label class="password-input mobile-font-boost">Password</label><input name="password" type="password" class="password mobile-font-boost" placeholder="Your password" required>
+					<div class="password-error error"></div>
+				</div>
+				<!-- <div>
+					<a href="login-Goog">Login with Google!</a>
+				</div> -->
+				<div class="login-wrapper login row col-sm-6 mobile-form">
+						<input type="submit" class="submit btn btn-warning" value="Login">
+					</div>
+				
+				<div class="login-wrapper mobile-form not-a-member col-sm-4 mobile-form"><label class="mobile-font-boost">Not a volunteer?</label>
+					<input type="button" class="btn vol-btn btn-info btn-xs" value="Click here">
+				</div>
+			</form>
+			<div class="">
+				<img id="home" src="../images/icons/home-white.svg"/><a href="/"><img class="return-home" src="../images/sb-lettering_white.png" height="40" width="150"/></a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
